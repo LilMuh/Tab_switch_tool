@@ -71,35 +71,50 @@
         <div class="tab_nav">
             <h3>Today's special</h3>
             <ur>
-                <li><a class="active" href="#">Special</a></li>
-                <li><a class="" href="javascript:;">Food</a></li>
-                <li><a class="" href="javascript:;">Grocery</a></li>
-                <li><a class="" href="javascript:;">Daily</a></li>
-                <li><a class="" href="javascript:;">Coming soon</a></li>
+                <li><a class="active" href="#" data-id="1">Special</a></li>
+                <li><a class="" href="javascript:;" data-id="2">Food</a></li>
+                <li><a class="" href="javascript:;" data-id="3">Grocery</a></li>
+                <li><a class="" href="javascript:;" data-id="4">Daily</a></li>
+                <li><a class="" href="javascript:;" data-id="5">Coming soon</a></li>
             </ur>
         </div>
         <div class="tab_content">
-            <div class="item active"><img src="../pic_slide/1.jpg" alt=""></div>
-            <div class="item"><img src="../pic_slide/2.jpg" alt=""></div>
-            <div class="item"><img src="../pic_slide/3.jpg" alt=""/></div>
-            <div class="item"><img src="../pic_slide/4.jpg" alt=""/></div>
-            <div class="item"><img src="../pic_slide/5.jpg" alt=""/></div>
+            <div class="item active"><img src="1.jpg" alt=""></div>
+            <div class="item"><img src="2.jpg" alt=""></div>
+            <div class="item"><img src="3.jpg" alt=""/></div>
+            <div class="item"><img src="4.jpg" alt=""/></div>
+            <div class="item"><img src="5.jpg" alt=""/></div>
         </div>
     </div>
     <script>
         // get element 'a'
         const as = document.querySelectorAll('.tab_nav a')
         // switch class"active" on the "a" that mouse enter
-        for(let i=0;i<as.length;i++){
-            as[i].addEventListener('mouseenter',function(){
+
+        // First version: using for loop
+        // for(let i=0;i<as.length;i++){
+        //     as[i].addEventListener('mouseenter',function(){
           
+        //         document.querySelector('.tab_nav .active').classList.remove('active')
+        //         this.classList.add('active')
+        //         document.querySelector('.tab_content .active').classList.remove('active')
+        //         document.querySelector(`.tab_content .item:nth-child(${i+1})`).classList.add('active')                    
+        // })
+        // }
+
+        // Second version: add eventlistener to its father class; improve performance
+        const ur = document.querySelector('ur')
+        ur.addEventListener('click', function(e){
+            if (e.target.tagName==='A'){
+                // remove active from title and add to the new one
                 document.querySelector('.tab_nav .active').classList.remove('active')
-                this.classList.add('active')
+                e.target.classList.add('active')
+                // remove active from image and add to the new one
                 document.querySelector('.tab_content .active').classList.remove('active')
-                document.querySelector(`.tab_content .item:nth-child(${i+1})`).classList.add('active')
-                       
+                document.querySelector(`.tab_content .item:nth-child(${e.target.dataset.id})`).classList.add('active')   
+                
+            }
         })
-        }
        
     </script>
 </body>
